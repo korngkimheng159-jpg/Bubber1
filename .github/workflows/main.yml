@@ -1,0 +1,47 @@
+name: Build apps
+on:
+  workflow_dispatch:
+
+jobs:
+  ios:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Find the project folder
+        run: |
+          D=$(dirname "$(find . -type d -name android_app | head -1)")
+          if [ ! -d "$D/android_app/lib" ]; then echo "android_app/lib not found - upload the project files"; exit 1; fi
+          echo "APP_DIR=$D" >> "$GITHUB_ENV"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - name: Create Flutter iOS project and add our code
+        run: |
+          flutter create --org com.khmerdubber --project-name khmer_dubber_app --platforms ios build_app
+          cp -r "$APP_DIR"/android_app/lib/* build_app/lib/
+          cp "$APP_DIR"/android_app/pubspec.yaml build_app/pubspec.yaml
+          P=build_app/ios/Runner/Info.plist
+          B=/usr/libexec/PlistBuddy
+          $B -c "Set :CFBundleDisplayName 'Dubber ខ្មែរ'" "$P" || $B -c "Add :CFBundleDisplayName string 'Dubber ខ្មែរ'" "$P"
+          $B -c "Add :NSAppTransportSecurity dict" "$P"
+          $B -c "Add :NSAppTransportSecurity:NSAllowsArbitraryLoads bool true" "$P"
+          $B -c "Add :NSAppTransportSecurity:NSAllowsLocalNetworking bool true" "$P"
+          $B -c "Add :NSLocalNetworkUsageDescription string 'Connect to your Dubber server on the local network.'" "$P"
+          $B -c "Add :NSPhotoLibraryUsageDescription string 'Pick a video to dub.'" "$P"
+          $B -c "Add :NSMicrophoneUsageDescription string 'Not used.'" "$P"
+          $B -c "Add :UIFileSharingEnabled bool true" "$P"
+      - name: Build iOS (no codesign)
+        working-directory: build_app
+        run: |
+          flutter pub get
+          flutter build ios --release --no-codesign
+      - name: Package unsigned .ipa
+        run: |
+          mkdir -p Payload
+          cp -r build_app/build/ios/iphoneos/Runner.app Payload/
+          zip -qry DubberKhmer-unsigned.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Dubber-khmer-ios-ipa
+          path: DubberKhmer-unsigned.ipa
