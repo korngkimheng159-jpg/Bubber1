@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="km" data-led="cyan">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dubber">
+<title>Dubber ខ្មែរ</title>
+<style>
+@property --h{syntax:"<number>";inherits:true;initial-value:190}
+:root{--h:190;--glow:.7;--fs:100%;
+  --bg:#070b18;--card:#101733;--line:#25305e;--txt:#eaf0ff;--mut:#8f9bc4;
+  --led:hsl(var(--h) 100% 58%);--led2:hsl(calc(var(--h) + 70) 100% 64%);--ledA:hsl(var(--h) 100% 58% / calc(.55 * var(--glow)));
+  --gl:calc(16px * var(--glow))}
+html[data-led=pink]{--h:330}html[data-led=gold]{--h:45}html[data-led=purple]{--h:268}html[data-led=green]{--h:140}html[data-led=cyan]{--h:190}
+html[data-led=rainbow]{animation:hue 7s linear infinite}
+html[data-led=off]{--glow:0}
+@keyframes hue{from{--h:0}to{--h:360}}
+@keyframes slide{to{background-position:200% 0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 var(--gl) var(--ledA)}50%{box-shadow:0 0 calc(var(--gl) * 1.9) var(--ledA)}}
+*{box-sizing:border-box}
+html{font-size:var(--fs)}
+body{margin:0;background:radial-gradient(1200px 500px at 50% -120px,hsl(var(--h) 80% 22% / .55),transparent 70%),var(--bg);color:var(--txt);
+  font:16px/1.5 system-ui,"Noto Sans Khmer","Khmer OS",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);min-height:100vh}
+header{display:flex;align-items:center;gap:12px;padding:12px 14px;position:sticky;top:0;background:#0b1126ee;backdrop-filter:blur(8px);z-index:5}
+.logo{width:44px;height:44px;border-radius:12px;flex:none;border:1.5px solid var(--led);box-shadow:0 0 var(--gl) var(--ledA),inset 0 0 8px var(--ledA);animation:pulse 3s ease-in-out infinite;object-fit:cover}
+header h1{font-size:20px;margin:0;line-height:1.1;background:linear-gradient(90deg,var(--led),var(--led2));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 calc(10px * var(--glow)) var(--ledA)}
+header small{display:block;color:var(--mut);font-size:12px;font-weight:400;-webkit-text-fill-color:var(--mut)}
+header .t{flex:1;min-width:0}
+.strip{height:3px;background:linear-gradient(90deg,#ff2d55,#ffcc00,#34d399,#22d3ee,#6366f1,#d946ef,#ff2d55);background-size:200% 100%;animation:slide 5s linear infinite;box-shadow:0 0 calc(10px * var(--glow)) var(--ledA);position:sticky;top:68px;z-index:5}
+html[data-led=off] .strip{animation:none;background:var(--line);box-shadow:none}
+.ib{background:#131b3b;color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:9px 11px;font:inherit;font-size:14px;font-weight:600;cursor:pointer}
+.ib.on{border-color:var(--led);box-shadow:0 0 var(--gl) var(--ledA)}
+main{max-width:720px;margin:0 auto;padding:14px 14px 96px}
+.card{background:var(--card);border:1px solid var(--led);border-radius:16px;padding:14px;margin-bottom:14px;box-shadow:0 0 var(--gl) var(--ledA),inset 0 0 18px hsl(var(--h) 100% 58% / calc(.07 * var(--glow)))}
+.card h2{margin:0 0 10px;font-size:16px;letter-spacing:.2px}
+.card h3{margin:14px 0 4px;font-size:13px;color:var(--led);font-weight:600}
+label{display:block;color:var(--mut);font-size:13px;margin:10px 0 4px}
+select,input[type=text],input[type=password],textarea{width:100%;background:#0b1130;color:var(--txt);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font:inherit}
+select:focus,input:focus,textarea:focus{outline:0;border-color:var(--led);box-shadow:0 0 calc(10px * var(--glow)) var(--ledA)}
+textarea{resize:vertical;min-height:64px}
+button,.btn{background:#18214a;color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:12px 16px;font:inherit;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block;text-align:center}
+button.primary,.btn.primary{background:linear-gradient(90deg,var(--led),var(--led2));color:#04101c;border:0;width:100%;padding:14px;font-size:17px;box-shadow:0 0 var(--gl) var(--ledA);animation:pulse 2.6s ease-in-out infinite}
+html[data-led=off] button.primary,html[data-led=off] .btn.primary{animation:none;background:#2f7bff;color:#fff}
+button:disabled{opacity:.45;animation:none!important}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:110px}
+.file{border:2px dashed var(--led);border-radius:14px;padding:22px;text-align:center;color:var(--mut);box-shadow:inset 0 0 16px hsl(var(--h) 100% 58% / calc(.1 * var(--glow)))}
+.file b{color:var(--txt)}
+.bar{height:14px;background:#0b1130;border-radius:9px;overflow:hidden;border:1px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--led),var(--led2),var(--led));background-size:200% 100%;animation:slide 1.6s linear infinite;box-shadow:0 0 calc(12px * var(--glow)) var(--led);transition:width .4s}
+.msg{color:var(--mut);font-size:14px;margin-top:8px;min-height:20px}
+.err{color:#fecaca;background:#3b1219;border:1px solid #7f1d1d;border-radius:10px;padding:10px;margin-top:10px;white-space:pre-wrap;font-size:14px}
+.seg{border-top:1px solid var(--line);padding:10px 0}.seg:first-child{border-top:0}
+.seg .t{display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:12px;margin-bottom:4px}
+.seg .src{color:var(--mut);font-size:13px;margin-bottom:6px}
+.g{display:inline-flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.g button{border:0;border-radius:0;padding:5px 12px;background:#0b1130;font-size:14px}
+.g button.on.m{background:#0e7490;box-shadow:0 0 10px #22d3ee88}.g button.on.f{background:#be185d;box-shadow:0 0 10px #f472b688}
+video{width:100%;max-height:70vh;border-radius:12px;background:#000;box-shadow:0 0 var(--gl) var(--ledA)}
+.hide{display:none}
+.bottom{position:fixed;left:0;right:0;bottom:0;padding:10px 14px calc(10px + env(safe-area-inset-bottom));background:#070b18ee;backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.bottom .primary{max-width:720px;margin:0 auto;display:block}
+.sw{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 2px}
+.sw button{width:38px;height:38px;border-radius:50%;padding:0;border:2px solid #ffffff22;position:relative}
+.sw button.on{border-color:#fff;box-shadow:0 0 14px currentColor}
+.sw .rb{background:conic-gradient(#ff2d55,#ffcc00,#34d399,#22d3ee,#6366f1,#d946ef,#ff2d55)}
+.sw .of{background:#18214a;font-size:12px;width:auto;border-radius:19px;padding:0 12px}
+input[type=range]{width:100%;accent-color:var(--led)}
+.chk{display:flex;gap:8px;align-items:center;color:var(--txt);margin:10px 0 0}
+.chk input{width:18px;height:18px;accent-color:var(--led)}
+.hint{color:var(--mut);font-size:12px;margin-top:2px}
+</style>
+</head>
+<body>
+<header>
+  <img class="logo" src="/icon-192.png" alt="Dubber" width="44" height="44">
+  <div class="t"><h1>Dubber ខ្មែរ<small>ដាក់សំឡេងខ្មែរលើវីដេអូ</small></h1></div>
+  <button class="ib hide" id="binst" title="Install">⬇ App</button>
+  <button class="ib" id="bopt" title="Options">☰ ជម្រើស</button>
+  <button class="ib" id="bset" title="Settings">⚙</button>
+</header>
+<div class="strip"></div>
+<main>
+  <section class="card hide" id="options">
+    <h2>☰ ជម្រើស (Options)</h2>
+    <h3>ពន្លឺ LED</h3>
+    <div class="sw" id="sw">
+      <button data-c="cyan" style="background:#22d3ee;color:#22d3ee" aria-label="cyan"></button>
+      <button data-c="pink" style="background:#f472b6;color:#f472b6" aria-label="pink"></button>
+      <button data-c="gold" style="background:#fbbf24;color:#fbbf24" aria-label="gold"></button>
+      <button data-c="purple" style="background:#a78bfa;color:#a78bfa" aria-label="purple"></button>
+      <button data-c="green" style="background:#34d399;color:#34d399" aria-label="green"></button>
+      <button data-c="rainbow" class="rb" style="color:#fff" aria-label="rainbow"></button>
+      <button data-c="off" class="of">បិទ LED</button>
+    </div>
+    <label>កម្រិតពន្លឺ <span id="glowv" style="color:var(--led)"></span></label>
+    <input type="range" id="glow" min="10" max="100" step="5">
+    <label>ទំហំអក្សរ <span id="fsv" style="color:var(--led)"></span></label>
+    <input type="range" id="fsz" min="90" max="130" step="5">
+
+    <h3>លំនាំដើមនៃការដាក់សំឡេង</h3>
+    <div class="row">
+      <div><label>ល្បឿននិយាយ</label><select id="o_spd"><option value="0.9">0.9x</option><option value="1" selected>1.0x</option><option value="1.1">1.1x</option><option value="1.2">1.2x</option><option value="1.35">1.35x</option></select></div>
+      <div><label>ឱ្យត្រូវពេលវីដេអូ</label><select id="o_fit"><option value="Soft">Soft</option><option value="Hard">Hard (លឿនជាង)</option><option value="Off">Off</option></select></div>
+    </div>
+    <div class="row">
+      <div><label>ទំហំវីដេអូ Export</label><select id="o_res"><option value="0">ដើម</option><option value="720">720p (លឿន)</option><option value="1080">1080p</option></select></div>
+      <div><label>Whisper size</label><select id="o_wh"><option>tiny</option><option>base</option><option selected>small</option><option>medium</option></select></div>
+    </div>
+    <div class="hint">Whisper ប្រើតែពេលជ្រើស "Whisper" ។ tiny = លឿន, medium = ត្រឹមត្រូវ។</div>
+    <label class="chk"><input type="checkbox" id="o_bg"> រក្សាសំឡេងដើម (តន្ត្រី) ស្រាលៗ</label>
+    <label class="chk"><input type="checkbox" id="o_auto"> ចាក់វីដេអូស្វ័យប្រវត្តិពេលរួច</label>
+    <label class="chk"><input type="checkbox" id="o_fast"> ⚡ ប្រើម៉ូដលឿនជាលំនាំដើម</label>
+    <div class="row" style="margin-top:14px"><button id="oreset">ត្រឡប់ជាលំនាំដើម</button><button id="oclose">បិទ</button></div>
+  </section>
+
+  <section class="card hide" id="settings">
+    <h2>⚙ Token / API Key</h2>
+    <label>Token (ពាក្យសម្ងាត់ server បើមាន)</label>
+    <input type="password" id="token" autocomplete="off">
+    <label>Gemini API Key (ជម្រើស — លឿន/ឆ្លាតជាង)</label>
+    <input type="password" id="gkey" autocomplete="off">
+    <div class="row" style="margin-top:12px"><button id="bsave">រក្សាទុក</button><button id="btest">សាកល្បងការភ្ជាប់</button></div>
+    <div class="msg" id="smsg"></div>
+  </section>
+
+  <section class="card" id="s1">
+    <h2>១. ជ្រើសវីដេអូ</h2>
+    <label class="file" for="vid"><div>📂 ចុចដើម្បីជ្រើសវីដេអូ</div><div id="fname"><b>មិនទាន់ជ្រើស</b></div></label>
+    <input type="file" id="vid" accept="video/*" class="hide">
+    <div class="row">
+      <div><label>ភាសាក្នុងវីដេអូ</label><select id="src"></select></div>
+      <div><label>បកប្រែទៅ</label><select id="tgt"></select></div>
+    </div>
+    <div class="row">
+      <div><label>ស្តាប់ (Transcribe)</label><select id="stt"><option value="whisper">Whisper (មិនត្រូវការ key)</option><option value="gemini">Gemini (លឿន — ត្រូវការ key)</option></select></div>
+      <div><label>បកប្រែ</label><select id="eng"><option value="free">Free (មិនត្រូវការ key)</option><option value="gemini">Gemini (ឆ្លាត — ត្រូវការ key)</option></select></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="fast"> ⚡ ម៉ូដលឿន (Gemini Lite · បកខ្លី)</label>
+    <div class="msg" id="fastmsg">ត្រូវការ Gemini API Key (⚙)។ បកប្រែលឿនជាង ហើយប្រយោគខ្លី និយាយទាន់ពេលវីដេអូ។</div>
+    <div style="margin-top:14px"><button class="primary" id="bgo" disabled>⚡ ចាប់ផ្តើម Transcribe + បកប្រែ</button></div>
+  </section>
+
+  <section class="card hide" id="sp">
+    <h2 id="ptitle">កំពុងដំណើរការ…</h2>
+    <div class="bar"><i id="pbar"></i></div>
+    <div class="msg" id="pmsg"></div>
+    <div class="err hide" id="perr"></div>
+    <div style="margin-top:12px" class="hide" id="pback"><button id="bretry">← ត្រឡប់ក្រោយ</button></div>
+  </section>
+
+  <section class="card hide" id="s2">
+    <h2>២. ពិនិត្យអត្ថបទ <span id="cnt" style="color:var(--mut);font-weight:400"></span></h2>
+    <div class="row">
+      <div><label>ល្បឿននិយាយ</label><select id="spd"><option value="0.9">0.9x</option><option value="1" selected>1.0x</option><option value="1.1">1.1x</option><option value="1.2">1.2x</option><option value="1.35">1.35x</option></select></div>
+      <div><label>ឱ្យត្រូវពេលវីដេអូ</label><select id="fit"><option value="Soft" selected>Soft</option><option value="Hard">Hard (លឿនជាង)</option><option value="Off">Off</option></select></div>
+      <div><label>ទំហំវីដេអូ</label><select id="res"><option value="0">ដើម</option><option value="720" selected>720p (លឿន)</option><option value="1080">1080p</option></select></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="bg"> រក្សាសំឡេងដើម (តន្ត្រី) ស្រាលៗ</label>
+    <div id="list" style="margin-top:8px"></div>
+  </section>
+
+  <section class="card hide" id="s3">
+    <h2>៣. រួចរាល់ 🎉</h2>
+    <video id="player" controls playsinline></video>
+    <div class="row" style="margin-top:12px"><a class="btn primary" id="dl" download="dubbed.mp4">⬇ ទាញយក / Save</a></div>
+    <div class="row" style="margin-top:8px"><button id="bedit">✎ កែអត្ថបទម្តងទៀត</button><button id="bnew">＋ វីដេអូថ្មី</button></div>
+  </section>
+</main>
+<div class="bottom hide" id="bar2"><button class="primary" id="brender">🔊 បង្កើតសំឡេង + Export</button></div>
+
+<script>
+const $=id=>document.getElementById(id);
+const LS=k=>localStorage.getItem(k)||"";
+let jid="", segs=[], phase="";
+const hdr=()=>({"X-Token":LS("kd_token")});
+const q=()=>LS("kd_token")?("?token="+encodeURIComponent(LS("kd_token"))):"";
+const show=(...ids)=>["s1","sp","s2","s3","bar2"].forEach(i=>$(i).classList.toggle("hide",!ids.includes(i)));
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- options (LED, text size, defaults) ---------- */
+const DEF={led:"cyan",glow:70,fs:100,spd:"1",fit:"Soft",res:"720",wh:"small",bg:false,auto:false,fast:false};
+let O={...DEF}; try{O={...DEF,...JSON.parse(LS("kd_opts")||"{}")}}catch(e){}
+function saveO(){try{localStorage.setItem("kd_opts",JSON.stringify(O))}catch(e){}}
+function applyO(){
+  document.documentElement.dataset.led=O.led;
+  document.documentElement.style.setProperty("--glow",(O.glow/100).toFixed(2));
+  document.documentElement.style.setProperty("--fs",O.fs+"%");
+  $("glow").value=O.glow;$("glowv").textContent=O.glow+"%";$("fsz").value=O.fs;$("fsv").textContent=O.fs+"%";
+  $("sw").querySelectorAll("button").forEach(b=>b.classList.toggle("on",b.dataset.c===O.led));
+  $("o_spd").value=O.spd;$("o_fit").value=O.fit;$("o_res").value=O.res;$("o_wh").value=O.wh;
+  $("o_bg").checked=O.bg;$("o_auto").checked=O.auto;$("o_fast").checked=O.fast;
+  $("bopt").classList.toggle("on",!$("options").classList.contains("hide"));
+}
+function applyDefaultsToForm(){ $("spd").value=O.spd;$("fit").value=O.fit;$("res").value=O.res;$("bg").checked=O.bg;$("fast").checked=O.fast&&!!LS("kd_gkey");if($("fast").checked)$("fast").onchange() }
+$("sw").querySelectorAll("button").forEach(b=>b.onclick=()=>{O.led=b.dataset.c;saveO();applyO()});
+$("glow").oninput=()=>{O.glow=+$("glow").value;saveO();applyO()};
+$("fsz").oninput=()=>{O.fs=+$("fsz").value;saveO();applyO()};
+[["o_spd","spd"],["o_fit","fit"],["o_res","res"],["o_wh","wh"]].forEach(([id,k])=>$(id).onchange=()=>{O[k]=$(id).value;saveO();applyDefaultsToForm()});
+[["o_bg","bg"],["o_auto","auto"],["o_fast","fast"]].forEach(([id,k])=>$(id).onchange=()=>{O[k]=$(id).checked;saveO();applyDefaultsToForm()});
+$("oreset").onclick=()=>{O={...DEF};saveO();applyO();applyDefaultsToForm()};
+$("oclose").onclick=()=>{$("options").classList.add("hide");applyO()};
+$("bopt").onclick=()=>{$("options").classList.toggle("hide");applyO();if(!$("options").classList.contains("hide"))window.scrollTo(0,0)};
+
+/* ---------- settings ---------- */
+$("token").value=LS("kd_token"); $("gkey").value=LS("kd_gkey");
+$("bset").onclick=()=>$("settings").classList.toggle("hide");
+$("bsave").onclick=()=>{localStorage.setItem("kd_token",$("token").value.trim());localStorage.setItem("kd_gkey",$("gkey").value.trim());$("smsg").textContent="✔ រក្សាទុករួច"};
+$("btest").onclick=async()=>{$("bsave").click();try{const r=await fetch("/api/ping",{headers:hdr()});const j=await r.json();$("smsg").textContent=r.ok?("✔ ភ្ជាប់បាន · ffmpeg "+(j.ffmpeg?"OK":"មិនមាន")):("✖ "+(j.detail||r.status))}catch(e){$("smsg").textContent="✖ ភ្ជាប់មិនបាន"}};
+
+async function init(){
+  applyO();
+  let langs=["Auto","Chinese","English","Khmer","Thai","Vietnamese","Japanese","Korean"];
+  try{const r=await fetch("/api/ping",{headers:hdr()});if(r.ok){const j=await r.json();if(j.languages?.length)langs=j.languages}else if(r.status==401){$("settings").classList.remove("hide");$("smsg").textContent="ត្រូវការ Token"}}catch(e){}
+  const mk=(sel,list,def)=>{sel.innerHTML=list.map(l=>`<option ${l===def?"selected":""}>${esc(l)}</option>`).join("")};
+  const withAuto=["Auto",...langs.filter(l=>l!=="Auto")];
+  mk($("src"),withAuto,"Chinese"); mk($("tgt"),langs.filter(l=>l!=="Auto"),"Khmer");
+  if(LS("kd_gkey")){$("stt").value="gemini";$("eng").value="gemini"}
+  applyDefaultsToForm();
+}
+$("vid").onchange=e=>{const f=e.target.files[0];$("fname").innerHTML=f?`<b>${esc(f.name)}</b> · ${(f.size/1048576).toFixed(1)} MB`:"<b>មិនទាន់ជ្រើស</b>";$("bgo").disabled=!f};
+
+function setProg(p,m,t){ $("pbar").style.width=p+"%"; $("pmsg").textContent=m||""; if(t)$("ptitle").textContent=t; }
+function fail(msg){ $("perr").textContent=msg; $("perr").classList.remove("hide"); $("pback").classList.remove("hide"); }
+
+$("bgo").onclick=()=>{
+  const f=$("vid").files[0]; if(!f)return;
+  const fastOn=$("fast").checked; if(fastOn&&!LS("kd_gkey")){$("settings").classList.remove("hide");$("smsg").textContent="ម៉ូដលឿនត្រូវការ Gemini API Key";window.scrollTo(0,0);return}
+  const fd=new FormData(); fd.append("video",f); if(fastOn)fd.append("fast","1");
+  fd.append("src_lang",$("src").value); fd.append("tgt_lang",$("tgt").value);
+  fd.append("engine",fastOn?"gemini":$("eng").value); fd.append("stt",fastOn?"gemini":$("stt").value); fd.append("gemini_key",LS("kd_gkey"));
+  fd.append("whisper_size",O.wh);
+  phase="translate"; show("sp"); $("perr").classList.add("hide"); $("pback").classList.add("hide"); setProg(0,"កំពុង Upload…","Upload");
+  const x=new XMLHttpRequest(); x.open("POST","/api/jobs"); const t=LS("kd_token"); if(t)x.setRequestHeader("X-Token",t);
+  x.upload.onprogress=e=>{if(e.lengthComputable)setProg(Math.round(e.loaded/e.total*100),`Upload ${(e.loaded/1048576).toFixed(1)} / ${(e.total/1048576).toFixed(1)} MB`,"Upload")};
+  x.onload=()=>{ try{const j=JSON.parse(x.responseText); if(x.status!==200)return fail(j.detail||("Error "+x.status)); jid=j.id; setProg(0,"Transcribe…","Transcribe + បកប្រែ"); poll()}catch(e){fail("Server error")} };
+  x.onerror=()=>fail("ភ្ជាប់ server មិនបាន (ពិនិត្យ Wi-Fi / URL / Token)");
+  x.send(fd);
+};
+
+async function poll(){
+  try{
+    const r=await fetch("/api/jobs/"+jid,{headers:hdr()}); const j=await r.json();
+    if(!r.ok) return fail(j.detail||("Error "+r.status));
+    if(j.status==="error") return fail(j.error||"មានបញ្ហា");
+    if(phase==="translate"&&j.status==="review"){ segs=j.segments; return showReview(); }
+    if(phase==="render"&&j.status==="done"){ return showDone(); }
+    setProg(j.pct,j.msg, phase==="render"?"កំពុងបង្កើតសំឡេង + Export":"Transcribe + បកប្រែ");
+  }catch(e){ $("pmsg").textContent="កំពុងព្យាយាមភ្ជាប់ឡើងវិញ…" }
+  setTimeout(poll,2000);
+}
+
+function showReview(){
+  show("s2","bar2"); $("cnt").textContent=`(${segs.length} ជួរ)`;
+  const fmt=t=>{const m=Math.floor(t/60),s=(t%60).toFixed(1);return m+":"+(s<10?"0":"")+s};
+  $("list").innerHTML=segs.map((s,i)=>`<div class="seg"><div class="t"><span>${fmt(s.start)} → ${fmt(s.end)}</span>
+    <span class="g"><button data-i="${i}" data-g="male" class="m ${s.gender.startsWith("m")?"on":""}">♂</button><button data-i="${i}" data-g="female" class="f ${!s.gender.startsWith("m")?"on":""}">♀</button></span></div>
+    <div class="src">${esc(s.src)}</div><textarea data-i="${i}" rows="2">${esc(s.text)}</textarea></div>`).join("");
+  $("list").querySelectorAll("textarea").forEach(t=>t.oninput=()=>{segs[+t.dataset.i].text=t.value});
+  $("list").querySelectorAll(".g button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;segs[i].gender=b.dataset.g;const p=b.parentNode;p.children[0].classList.toggle("on",b.dataset.g==="male");p.children[1].classList.toggle("on",b.dataset.g==="female")});
+  window.scrollTo(0,0);
+}
+
+$("brender").onclick=async()=>{
+  const body={segments:segs.map(s=>({start:s.start,end:s.end,text:s.text,gender:s.gender,src:s.src||""})),
+    speed:+$("spd").value,fit:$("fit").value,keep_original_bg:$("bg").checked,gemini_key:LS("kd_gkey"),resolution:+$("res").value};
+  phase="render"; show("sp"); $("perr").classList.add("hide"); $("pback").classList.add("hide"); setProg(0,"…","កំពុងបង្កើតសំឡេង + Export");
+  try{
+    const r=await fetch("/api/jobs/"+jid+"/render",{method:"POST",headers:{...hdr(),"Content-Type":"application/json"},body:JSON.stringify(body)});
+    if(!r.ok){const j=await r.json().catch(()=>({}));return fail(j.detail||("Error "+r.status))}
+    poll();
+  }catch(e){fail("ភ្ជាប់ server មិនបាន")}
+};
+
+function showDone(){
+  show("s3"); const u="/api/jobs/"+jid+"/video"+q()+(q()?"&":"?")+"t="+Date.now();
+  $("player").src=u; $("dl").href=u; window.scrollTo(0,0);
+  if(O.auto)$("player").play().catch(()=>{});
+}
+$("bedit").onclick=()=>showReview();
+$("bnew").onclick=()=>{ if(jid)fetch("/api/jobs/"+jid,{method:"DELETE",headers:hdr()}).catch(()=>{}); jid="";segs=[];$("vid").value="";$("fname").innerHTML="<b>មិនទាន់ជ្រើស</b>";$("bgo").disabled=true;show("s1") };
+$("bretry").onclick=()=>show(segs.length?"s2":"s1", ...(segs.length?["bar2"]:[]));
+$("fast").onchange=()=>{ if($("fast").checked){$("stt").value="gemini";$("eng").value="gemini"} };
+let dp=null; addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e;$("binst").classList.remove("hide")});
+$("binst").onclick=async()=>{if(dp){dp.prompt();await dp.userChoice;dp=null;$("binst").classList.add("hide")}};
+if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));
+init();
+</script>
+</body>
+</html>

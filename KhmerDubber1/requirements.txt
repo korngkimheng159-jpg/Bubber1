@@ -1,0 +1,11 @@
+PySide6>=6.6
+requests
+edge-tts>=6.1.10
+numpy
+soundfile
+deep-translator
+faster-whisper
+gTTS
+# Vocal Remover (optional, large download because of PyTorch):
+# demucs
+cryptography

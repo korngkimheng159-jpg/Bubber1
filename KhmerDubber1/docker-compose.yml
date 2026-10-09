@@ -1,0 +1,29 @@
+services:
+  dubber:
+    build: .
+    restart: unless-stopped
+    environment:
+      KD_TOKEN: ${KD_TOKEN:?សូមកំណត់ KD_TOKEN ក្នុងឯកសារ .env}
+      KD_TOKENS: ${KD_TOKENS:-}              # token រៀងខ្លួនសម្រាប់មិត្តភក្តិ: anna:tok1,bob:tok2
+      KD_MAX_MB: ${KD_MAX_MB:-500}
+      KD_MAX_MIN: ${KD_MAX_MIN:-20}
+      KD_MAX_JOBS: ${KD_MAX_JOBS:-1}
+      KD_PER_USER: ${KD_PER_USER:-2}
+      KD_SHARE_KEY: ${KD_SHARE_KEY:-0}
+      KD_KEEP_HOURS: "24"
+    volumes:
+      - dubber_data:/data
+    ports:
+      - "8765:8765"
+
+  # ជម្រើស HTTPS ដោយស្វ័យប្រវត្តិ (ត្រូវមាន domain ចង្អុលមក server): ដក # ខាងក្រោម ហើយលុប "ports" ខាងលើ
+  # caddy:
+  #   image: caddy:2
+  #   restart: unless-stopped
+  #   ports: ["80:80", "443:443"]
+  #   command: caddy reverse-proxy --from ${DOMAIN} --to dubber:8765
+  #   volumes: [caddy_data:/data]
+
+volumes:
+  dubber_data:
+  # caddy_data:

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-multipart
+requests
+edge-tts>=6.1.10
+numpy
+soundfile
+deep-translator
+faster-whisper
+gTTS
